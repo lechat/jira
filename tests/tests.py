@@ -332,8 +332,8 @@ def find_by_name(seq, name):
 class UniversalResourceTests(unittest.TestCase):
 
     def setUp(self):
-        self.jira = JiraTestManager().jira_admin
         self.test_manager = JiraTestManager()
+        self.jira = self.test_manager.jira_admin
 
     def test_universal_find_existing_resource(self):
         resource = self.jira.find('issue/{0}',
@@ -423,7 +423,7 @@ class AttachmentTests(unittest.TestCase):
 
     def setUp(self):
         self.test_manager = JiraTestManager()
-        self.jira = JiraTestManager().jira_admin
+        self.jira = self.test_manager.jira_admin
         self.project_b = self.test_manager.project_b
         self.issue_1 = self.test_manager.project_b_issue1
         self.attachment = None
@@ -451,7 +451,7 @@ class ComponentTests(unittest.TestCase):
 
     def setUp(self):
         self.test_manager = JiraTestManager()
-        self.jira = JiraTestManager().jira_admin
+        self.jira = self.test_manager.jira_admin
         self.project_b = self.test_manager.project_b
         self.issue_1 = self.test_manager.project_b_issue1
         self.issue_2 = self.test_manager.project_b_issue2
@@ -568,7 +568,7 @@ class FilterTests(unittest.TestCase):
 
     def setUp(self):
         self.test_manager = JiraTestManager()
-        self.jira = JiraTestManager().jira_admin
+        self.jira = self.test_manager.jira_admin
         self.project_b = self.test_manager.project_b
         self.issue_1 = self.test_manager.project_b_issue1
         self.issue_2 = self.test_manager.project_b_issue2
@@ -616,7 +616,7 @@ class IssueTests(unittest.TestCase):
 
     def setUp(self):
         self.test_manager = JiraTestManager()
-        self.jira = JiraTestManager().jira_admin
+        self.jira = self.test_manager.jira_admin
         self.jira_normal = self.test_manager.jira_normal
         self.project_b = self.test_manager.project_b
         self.project_a = self.test_manager.project_a
@@ -1188,7 +1188,7 @@ class MyPermissionsTests(unittest.TestCase):
 
     def setUp(self):
         self.test_manager = JiraTestManager()
-        self.jira = JiraTestManager().jira_normal
+        self.jira = self.test_manager.jira_normal
         self.issue_1 = self.test_manager.project_b_issue1
 
     def test_my_permissions(self):
@@ -1228,9 +1228,9 @@ class PrioritiesTests(unittest.TestCase):
 class ProjectTests(unittest.TestCase):
 
     def setUp(self):
-        self.jira = JiraTestManager().jira_admin
-        self.project_b = JiraTestManager().project_b
         self.test_manager = JiraTestManager()
+        self.jira = self.test_manager.jira_admin
+        self.project_b = self.test_manager.project_b
 
     def test_projects(self):
         projects = self.jira.projects()
@@ -1384,9 +1384,9 @@ class ResolutionTests(unittest.TestCase):
 class SearchTests(unittest.TestCase):
 
     def setUp(self):
-        self.jira = JiraTestManager().jira_admin
-        self.project_b = JiraTestManager().project_b
         self.test_manager = JiraTestManager()
+        self.jira = self.test_manager.jira_admin
+        self.project_b = self.test_manager.project_b
         self.issue = self.test_manager.project_b_issue1
 
     def test_search_issues(self):
@@ -1469,10 +1469,10 @@ class StatusTests(unittest.TestCase):
 class UserTests(unittest.TestCase):
 
     def setUp(self):
-        self.jira = JiraTestManager().jira_admin
-        self.project_a = JiraTestManager().project_a
-        self.project_b = JiraTestManager().project_b
         self.test_manager = JiraTestManager()
+        self.jira = self.test_manager.jira_admin
+        self.project_a = self.test_manager.project_a
+        self.project_b = self.test_manager.project_b
         self.issue = self.test_manager.project_b_issue3
 
     def test_user(self):
@@ -1637,8 +1637,9 @@ class UserTests(unittest.TestCase):
 class VersionTests(unittest.TestCase):
 
     def setUp(self):
-        self.jira = JiraTestManager().jira_admin
-        self.project_b = JiraTestManager().project_b
+        self.test_manager = JiraTestManager()
+        self.jira = self.test_manager.jira_admin
+        self.project_b = self.test_manager.project_b
 
     def test_create_version(self):
         version = self.jira.create_version('new version 1', self.project_b,
@@ -1740,11 +1741,12 @@ class WebsudoTests(unittest.TestCase):
 class UserAdministrationTests(unittest.TestCase):
 
     def setUp(self):
-        self.jira = JiraTestManager().jira_admin
-        self.test_username = "test_%s" % JiraTestManager().project_a
+        self.test_manager = JiraTestManager()
+        self.jira = self.test_manager.jira_admin
+        self.test_username = "test_%s" % self.test_manager.project_a
         self.test_email = "%s@example.com" % self.test_username
         self.test_password = rndpassword()
-        self.test_groupname = 'testGroupFor_%s' % JiraTestManager().project_a
+        self.test_groupname = 'testGroupFor_%s' % self.test_manager.project_a
 
     def test_add_and_remove_user(self):
 
